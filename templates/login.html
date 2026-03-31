@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Sistema de Login</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Biblioteca de partículas -->
+    <script>
+
+        const form = document.querySelector("form");
+        const button = document.getElementById("loginBtn");
+
+        form.addEventListener("submit", function () {
+
+            button.innerText = "Entrando...";
+            button.disabled = true;
+
+        });
+
+    </script>
+
+</head>
+
+
+<body>
+
+    <!-- Container das partículas -->
+    <div id="particles-js"></div>
+
+
+    <!-- Container principal do login -->
+    <div class="login-container">
+
+        <!-- Imagem da desenvolvedora -->
+        <div class="image-box">
+            <img src="/static/images/dev.png" alt="Desenvolvedora programando">
+        </div>
+
+
+        <!-- Formulário de login -->
+        <div class="form-box">
+
+            <h2>Sistema de Login</h2>
+
+            <form action="/login" method="post">
+
+                <input type="email" name="email" placeholder="Email" required>
+
+                <input type="password" name="senha" placeholder="Senha" required>
+
+                <button type="submit" id="loginBtn">
+                    Entrar
+                </button>
+
+            </form>
+
+            <p>Não possui conta?</p>
+
+            <a href="/cadastro">
+                Criar conta
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Script que cria as partículas -->
+    <script>
+
+        particlesJS("particles-js", {
+
+            particles: {
+
+                number: {
+                    value: 60
+                },
+
+                color: {
+                    value: "#ffffff"
+                },
+
+                shape: {
+                    type: "circle"
+                },
+
+                opacity: {
+                    value: 0.5
+                },
+
+                size: {
+                    value: 3
+                },
+
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#ffffff",
+                    opacity: 0.3,
+                    width: 1
+                },
+
+                move: {
+                    enable: true,
+                    speed: 2
+                }
+
+            },
+
+            interactivity: {
+
+                events: {
+
+                    onhover: {
+                        enable: true,
+                        mode: "repulse"
+                    }
+
+                }
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

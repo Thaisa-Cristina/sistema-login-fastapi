@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   
+
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- HEADER -->
+    <header class="dashboard-header">
+        <h2>Dashboard</h2>
+
+        <div class="user-info">
+            <span>Bem-vinda {{ usuario.nome }}</span>
+            <a href="/logout" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+
+    <!-- CARDS -->
+    <div class="cards">
+
+        <div class="card">
+            <h3>Usuários</h3>
+            <p>{{ usuarios|length }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Logins</h3>
+            <p>{{ usuarios|length }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Sistema</h3>
+            <p>Online</p>
+        </div>
+
+    </div>
+
+
+    <!-- GRÁFICO -->
+    <div class="chart-box">
+        <h3>Estatísticas do Sistema</h3>
+        <canvas id="grafico"></canvas>
+    </div>
+
+
+    <!-- TABELA -->
+    <h3 class="titulo-tabela">Usuários do Sistema</h3>
+
+    <table class="tabela-usuarios">
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for u in usuarios %}
+            <tr>
+
+                <td>{{ u.id }}</td>
+                <td>{{ u.nome }}</td>
+                <td>{{ u.email }}</td>
+
+                <td class="acoes">
+
+                    <!-- EDITAR -->
+                    <span class="icon edit"
+                        onclick="abrirModal('{{ u.id }}','{{ u.nome }}','{{ u.email }}')"
+                        title="Editar">
+                        ✏️
+                    </span>
+
+                    <!-- EXCLUIR -->
+                    <a href="/deletar/{{ u.id }}"
+                       class="icon delete"
+                       title="Excluir"
+                       onclick="return confirm('Tem certeza que deseja excluir?');">
+                        🗑️
+                    </a>
+
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- MODAL -->
+<div id="modal-editar" class="modal">
+
+    <div class="modal-content">
+
+        <h2>Editar Usuário</h2>
+
+        <form id="form-editar" method="post">
+
+            <input type="text" name="nome" id="editar-nome" required>
+            <input type="email" name="email" id="editar-email" required>
+
+            <div class="modal-buttons">
+
+                <button type="submit">
+                    💾 Salvar
+                </button>
+
+                <button type="button" onclick="fecharModal()">
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- SCRIPT -->
+<script>
+
+    // GRÁFICO
+    const totalUsuarios = {{ usuarios|length | tojson }};
+
+    const ctx = document.getElementById("grafico");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Usuários", "Sistema"],
+            datasets: [{
+                label: "Dados do Sistema",
+                data: [totalUsuarios, 1],
+                backgroundColor: [
+                    "rgba(37,99,235,0.8)",
+                    "rgba(34,197,94,0.8)"
+                ],
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+
+    // MODAL
+    function abrirModal(id, nome, email) {
+        document.getElementById("modal-editar").style.display = "flex";
+
+        document.getElementById("editar-nome").value = nome;
+        document.getElementById("editar-email").value = email;
+
+        document.getElementById("form-editar").action = `/editar/${id}`;
+    }
+
+    function fecharModal() {
+        document.getElementById("modal-editar").style.display = "none";
+    }
+
+</script>
+
+</body>
+</html>

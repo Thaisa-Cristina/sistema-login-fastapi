@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Editar Usuário</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="form-box">
+
+            <h2>Editar Usuário</h2>
+
+            <form action="/editar/{{ usuario.id }}" method="post">
+
+                <input type="text" name="nome" value="{{ usuario.nome }}" required>
+
+                <input type="email" name="email" value="{{ usuario.email }}" required>
+
+                <button type="submit">Salvar</button>
+
+            </form>
+
+            <br>
+
+            <a href="/dashboard">Voltar</a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Criar Conta</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- imagem da desenvolvedora -->
+        <div class="image-box">
+            <img src="/static/images/dev.png">
+        </div>
+
+
+        <!-- formulário -->
+        <div class="form-box">
+
+            <h2>Criar Conta</h2>
+
+            <form action="/cadastro" method="post">
+
+                <input type="text" name="nome" placeholder="Nome" required>
+
+                <input type="email" name="email" placeholder="Email" required>
+
+                <input type="password" name="senha" placeholder="Senha" required>
+
+                <button type="submit">
+                    Cadastrar
+                </button>
+
+            </form>
+
+            <p>Já possui conta?</p>
+
+            <a href="/">
+                Voltar para login
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
